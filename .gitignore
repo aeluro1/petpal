@@ -1,1 +1,5 @@
-.git/
+.git
+.vscode
+/build
+/install
+/log

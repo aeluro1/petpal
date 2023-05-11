@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot name="petpal" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find petpal_description)/urdf/core.urdf.xacro" ns="petpal" />
+  
+</robot>

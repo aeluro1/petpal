@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="urdf_collision">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.13458 -5.5077E-17 0.02775"
+        rpy="0 0 0" />
+      <mass
+        value="6.375" />
+      <inertia
+        ixx="0.017266"
+        ixy="1.9581E-17"
+        ixz="7.0837E-35"
+        iyy="0.10127"
+        iyz="-4.9873E-20"
+        izz="0.10791" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_collision/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_collision/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="fl_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0063195 2.4416E-05 -0.00062108"
+        rpy="0 0 0" />
+      <mass
+        value="0.47124" />
+      <inertia
+        ixx="0.00058758"
+        ixy="-5.8604E-07"
+        ixz="1.4908E-05"
+        iyy="0.0004359"
+        iyz="-5.7595E-08"
+        izz="0.00043736" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_collision/meshes/fl_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_collision/meshes/fl_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_wheel_joint"
+    type="revolute">
+    <origin
+      xyz="0.29551 0.12352 -0.019409"
+      rpy="0 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="fl_wheel" />
+    <axis
+      xyz="-0.9952 0.003845 -0.097807" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0063195 -2.4416E-05 -0.00062108"
+        rpy="0 0 0" />
+      <mass
+        value="0.47124" />
+      <inertia
+        ixx="0.00058758"
+        ixy="5.8604E-07"
+        ixz="1.4908E-05"
+        iyy="0.0004359"
+        iyz="5.7595E-08"
+        izz="0.00043736" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_collision/meshes/fr_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_collision/meshes/fr_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_wheel_joint"
+    type="revolute">
+    <origin
+      xyz="0.29551 -0.12352 -0.019409"
+      rpy="0 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="fr_wheel" />
+    <axis
+      xyz="-0.9952 -0.003845 -0.097807" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+    <mimic
+      joint="fl_wheel_joint"
+      multiplier="1"
+      offset="0" />
+  </joint>
+  <link
+    name="bl_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0063453 -3.4694E-18 -0.00024406"
+        rpy="0 0 0" />
+      <mass
+        value="0.3927" />
+      <inertia
+        ixx="0.00049063"
+        ixy="3.8161E-20"
+        ixz="6.2841E-06"
+        iyy="0.00032725"
+        iyz="-5.6469E-21"
+        izz="0.00032749" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_collision/meshes/bl_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_collision/meshes/bl_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_wheel_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.13803 -0.021899"
+      rpy="0 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="bl_wheel" />
+    <axis
+      xyz="-0.99926 0 -0.038434" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="br_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0063453 0 -0.00024406"
+        rpy="0 0 0" />
+      <mass
+        value="0.3927" />
+      <inertia
+        ixx="0.00049063"
+        ixy="-1.3755E-19"
+        ixz="6.2841E-06"
+        iyy="0.00032725"
+        iyz="3.9528E-20"
+        izz="0.00032749" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_collision/meshes/br_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf_collision/meshes/br_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_wheel_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.13803 -0.021899"
+      rpy="0 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="br_wheel" />
+    <axis
+      xyz="-0.99926 0 -0.038434" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+    <mimic
+      joint="bl_wheel_joint"
+      multiplier="1"
+      offset="0" />
+  </joint>
+</robot>

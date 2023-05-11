@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="urdf_visual.SLDASM">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.113980972815983 -0.00184514624243108 -0.00154363234446762"
+        rpy="0 0 0" />
+      <mass
+        value="0.709809139841652" />
+      <inertia
+        ixx="0.00035253122649593"
+        ixy="-1.16981663495188E-05"
+        ixz="2.29313402720694E-05"
+        iyy="0.00142441971645512"
+        iyz="1.20507292278192E-05"
+        izz="0.00161731062627705" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://$(find petpal_sim)/urdf/meshes/visual/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://$(find petpal_sim)/urdf/meshes/collision/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="fl_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0056365 2.1791E-05 -0.00055398"
+        rpy="0 0 0" />
+      <mass
+        value="0.063936" />
+      <inertia
+        ixx="9.1342E-05"
+        ixy="-1.0157E-07"
+        ixz="2.5841E-06"
+        iyy="6.5049E-05"
+        iyz="-1.0144E-08"
+        izz="6.5302E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://$(find petpal_sim)/urdf/meshes/visual/fl_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://$(find petpal_sim)/urdf/meshes/collision/fl_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fl_wheel_joint"
+    type="revolute">
+    <origin
+      xyz="0.29551 0.12352 -0.019409"
+      rpy="0 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="fl_wheel" />
+    <axis
+      xyz="-0.9952 0.003845 -0.097807" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="fr_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0056365 -2.1749E-05 -0.00055395"
+        rpy="0 0 0" />
+      <mass
+        value="0.063936" />
+      <inertia
+        ixx="9.1342E-05"
+        ixy="1.0158E-07"
+        ixz="2.5841E-06"
+        iyy="6.5049E-05"
+        iyz="1.0009E-08"
+        izz="6.5302E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://$(find petpal_sim)/urdf/meshes/visual/fr_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://$(find petpal_sim)/urdf/meshes/collision/fr_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fr_wheel_joint"
+    type="revolute">
+    <origin
+      xyz="0.29551 -0.12352 -0.019409"
+      rpy="0 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="fr_wheel" />
+    <axis
+      xyz="-0.9952 -0.003845 -0.097807" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="bl_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0056999 -1.7387E-09 -0.00021923"
+        rpy="0 0 0" />
+      <mass
+        value="0.067933" />
+      <inertia
+        ixx="9.4408E-05"
+        ixy="1.1133E-11"
+        ixz="1.1344E-06"
+        iyy="6.4914E-05"
+        iyz="-2.687E-10"
+        izz="6.4958E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://$(find petpal_sim)/urdf/meshes/visual/bl_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://$(find petpal_sim)/urdf/meshes/collision/bl_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bl_wheel_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.13803 -0.021899"
+      rpy="0 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="bl_wheel" />
+    <axis
+      xyz="-0.99926 0 -0.038434" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="br_wheel">
+    <inertial>
+      <origin
+        xyz="-0.0056999 -3.4019E-10 -0.00021923"
+        rpy="0 0 0" />
+      <mass
+        value="0.067933" />
+      <inertia
+        ixx="9.4408E-05"
+        ixy="-1.0571E-11"
+        ixz="1.1344E-06"
+        iyy="6.4914E-05"
+        iyz="2.8E-10"
+        izz="6.4958E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://$(find petpal_sim)/urdf/meshes/visual/br_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://$(find petpal_sim)/urdf/meshes/collision/br_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="br_wheel_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.13803 -0.021899"
+      rpy="0 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="br_wheel" />
+    <axis
+      xyz="-0.99926 0 -0.038434" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>
