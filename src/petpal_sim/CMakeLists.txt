@@ -35,7 +35,8 @@ if(BUILD_TESTING)
 endif()
 
 install(
-  DIRECTORY launch worlds DESTINATION share/${PROJECT_NAME}
+  DIRECTORY launch worlds config
+  DESTINATION share/${PROJECT_NAME}
 )
 
 ament_package()
