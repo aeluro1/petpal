@@ -16,25 +16,34 @@ def generate_launch_description():
     petpal_load_launch = IncludeLaunchDescription(
         # PythonLaunchDescriptionSource([str(pkg_path), "/launch", "/petpal_load.launch.py"]),
         PythonLaunchDescriptionSource([FindPackageShare("petpal_sim"), "/launch", "/petpal_load.launch.py"]),
-        launch_arguments = {"use_sim_time": "true"}.items()
+        launch_arguments = {
+            "use_sim_time": "true"
+        }.items()
     )
 
     gazebo_launch = IncludeLaunchDescription(
         # PythonLaunchDescriptionSource([str(Path(get_package_share_directory("gazebo_ros")) / "launch" / "gazebo.launch.py")])
-        PythonLaunchDescriptionSource([FindPackageShare("gazebo_ros"), "/launch", "/gazebo.launch.py"])
+        PythonLaunchDescriptionSource([FindPackageShare("gazebo_ros"), "/launch", "/gazebo.launch.py"]),
+        launch_arguments = {
+            "world": f"{pkg_path / 'worlds' / 'test.world'}"
+        }.items()
     )
 
     spawn_node = Node(
         package = "gazebo_ros",
         executable = "spawn_entity.py",
-        arguments = ["-topic", "robot_description", "-entity", "petpal"],
+        arguments = [
+            "-topic", "robot_description",
+            "-entity", "petpal"],
         output = "screen"
     )
 
     rviz_node = Node(
         package = "rviz2",
         executable = "rviz2",
-        arguments = ["-d", f"{pkg_path / 'config' / 'config.rviz'}"],
+        arguments = [
+            "-d", f"{pkg_path / 'config' / 'config.rviz'}"
+        ],
         output = "screen"
     )
 

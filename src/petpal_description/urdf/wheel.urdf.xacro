@@ -2,6 +2,6 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:macro name="front_wheel" params="mirror">
-		
+		<!-- WIP -->
 	</xacro:macro>
 </robot>
