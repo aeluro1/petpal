@@ -1,5 +1,6 @@
 .git
 .vscode
-/build
-/install
-/log
+build/
+install/
+log/
+logs/

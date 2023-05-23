@@ -7,5 +7,7 @@
   <xacro:include filename="$(find petpal_description)/urdf/gazebo_control.urdf.xacro" />
 
   <xacro:include filename="$(find petpal_description)/urdf/lidar.urdf.xacro" />
+
+  <xacro:include filename="$(find petpal_description)/urdf/camera.urdf.xacro" />  
   
 </robot>
