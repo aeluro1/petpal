@@ -2,20 +2,20 @@
 
 <robot name="petpal" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <!-- <xacro:arg name="use_depth_cam" default="false" /> -->
+  <xacro:arg name="use_depth_cam" default="false" />
 
   <xacro:include filename="$(find petpal_description)/urdf/core.urdf.xacro" ns="petpal" />
 
   <xacro:include filename="$(find petpal_description)/urdf/gazebo_control.urdf.xacro" />
 
   <xacro:include filename="$(find petpal_description)/urdf/lidar.urdf.xacro" />
-<!-- 
+
   <xacro:unless value="$(arg use_depth_cam)">
     <xacro:include filename="$(find petpal_description)/urdf/camera.urdf.xacro" />
   </xacro:unless>
 
   <xacro:if value="$(arg use_depth_cam)">
     <xacro:include filename="$(find petpal_description)/urdf/depth_camera.urdf.xacro" />
-  </xacro:if> -->
+  </xacro:if>
 
 </robot>
