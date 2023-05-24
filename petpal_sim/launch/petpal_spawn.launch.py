@@ -11,13 +11,12 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
 
-    pkg_path = Path(get_package_share_directory("petpal_sim"))
-
     petpal_load_launch = IncludeLaunchDescription(
         # PythonLaunchDescriptionSource([str(pkg_path), "/launch", "/petpal_load.launch.py"]),
         PythonLaunchDescriptionSource([FindPackageShare("petpal_sim"), "/launch", "/petpal_load.launch.py"]),
         launch_arguments = {
-            "use_sim_time": "true"
+            "use_sim_time": "true",
+            "use_depth_cam": "false"
         }.items()
     )
 
@@ -25,7 +24,7 @@ def generate_launch_description():
         # PythonLaunchDescriptionSource([str(Path(get_package_share_directory("gazebo_ros")) / "launch" / "gazebo.launch.py")])
         PythonLaunchDescriptionSource([FindPackageShare("gazebo_ros"), "/launch", "/gazebo.launch.py"]),
         launch_arguments = {
-            "world": f"{pkg_path / 'worlds' / 'test.world'}"
+            "world": f"{get_package_share_directory('petpal_sim')}/worlds/test.world"
         }.items()
     )
 
@@ -42,7 +41,7 @@ def generate_launch_description():
         package = "rviz2",
         executable = "rviz2",
         arguments = [
-            "-d", f"{pkg_path / 'config' / 'config.rviz'}"
+            "-d", f"{get_package_share_directory('petpal_sim')}/config/config.rviz"
         ],
         output = "screen"
     )
