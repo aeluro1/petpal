@@ -33,7 +33,7 @@ find_package(ament_cmake REQUIRED)
 # target_link_libraries(parser ${catkin_LIBRARIES})
 
 install(
-  DIRECTORY meshes urdf
+  DIRECTORY meshes urdf config
   DESTINATION share/${PROJECT_NAME}
 )
 

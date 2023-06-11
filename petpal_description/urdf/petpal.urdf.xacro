@@ -6,7 +6,8 @@
 
   <xacro:include filename="$(find petpal_description)/urdf/core.urdf.xacro" ns="petpal" />
 
-  <xacro:include filename="$(find petpal_description)/urdf/gazebo_control.urdf.xacro" />
+  <!-- <xacro:include filename="$(find petpal_description)/urdf/gazebo_control.urdf.xacro" /> -->
+  <xacro:include filename="$(find petpal_description)/urdf/ros2_control.urdf.xacro" />
 
   <xacro:include filename="$(find petpal_description)/urdf/lidar.urdf.xacro" />
 

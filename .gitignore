@@ -1,6 +1,9 @@
 .git
 .vscode
+__pycache__
 build/
 install/
 log/
 logs/
+oxford-iiit-pet/images*
+oxford-iiit-pet/annotations*
