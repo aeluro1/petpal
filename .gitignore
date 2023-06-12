@@ -5,5 +5,5 @@ build/
 install/
 log/
 logs/
-oxford-iiit-pet/images*
-oxford-iiit-pet/annotations*
+petpal_vision/src/oxford-iiit-pet/images*
+petpal_vision/src/oxford-iiit-pet/annotations*
