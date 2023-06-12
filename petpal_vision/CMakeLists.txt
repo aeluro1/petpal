@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(petpal_sim)
+project(petpal_vision)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -7,6 +7,9 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
 
 if(BUILD_TESTING)
@@ -35,9 +38,11 @@ if(BUILD_TESTING)
   # target_link_libraries(${PROJECT_NAME}_basic_test name_of_local_library)
 endif()
 
-install(
-  DIRECTORY launch worlds config
-  DESTINATION share/${PROJECT_NAME}
-)
+# ament_python_install_package(src) # Sets up Python files in src/ as importable package modules
+
+install(PROGRAMS
+  src/object_tracking_node.py
+  src/camera_stream_node.py
+  DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
