@@ -1,3 +1,5 @@
+# Some of this code was inspired by the Pytorch official tutorials: https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
+
 import argparse
 import numpy as np
 import pandas as pd
