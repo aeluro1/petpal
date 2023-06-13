@@ -23,6 +23,9 @@ BATCH_SIZE = 4
 NUM_WORKERS = 4
 DATASET_RATIO = 0.8 # train:validate ratio
 
+IMG_MEAN = np.array([0.5, 0.5, 0.5])
+IMG_STD = ([0.5, 0.5, 0.5])
+
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 class ResNet(nn.Module):
@@ -38,17 +41,13 @@ class ResNet(nn.Module):
     def forward(self, data: list) -> list:
         return self.model(data)
     
-    def set_fine_tune(self):
+    def set_ffe(self): # fixed feature extractor
         for param in self.model.parameters():
             param.requires_grad = False
 
         num_features = self.model.fc.in_features
         self.model.fc = nn.Linear(num_features, self.num_classes)
         self.model = self.model.to(DEVICE)
-        
-
-
-        
     
 class PetDataset(Dataset):
     def __init__(self, img_path: str, labels_path: str, transform: transforms.Compose = None):
@@ -89,7 +88,7 @@ class PetDataset(Dataset):
 
         img_name = Path(self._img_path) / f"{self._labels.iloc[idx, 0]}.jpg"
         image = Image.open(img_name)
-        labels = np.array([self._labels.iloc[idx, 1:]])
+        labels = np.array([self._labels.iloc[idx, 1]]) # Use breeds as classifiers
         sample = {"image": image, "class": labels}
 
         if self._transform:
@@ -125,7 +124,7 @@ def load_model(model: nn.Module, optimizer) -> nn.Module:
     return (model, optimizer)
 
 def train_model(model: nn.Module,
-                datasets: DataLoader,
+                dataloaders: dict[str, DataLoader],
                 criterion: torch.nn.CrossEntropyLoss,
                 optimizer: torch.optim.Optimizer,
                 scheduler: torch.optim.lr_scheduler.LRScheduler):
@@ -141,31 +140,30 @@ def train_model(model: nn.Module,
                 model.eval()
 
             running_loss = 0.0
-            running_corrects = 0
+            running_correct = 0
 
-            for (inputs, labels) in datasets[phase]:
+            for (inputs, labels) in dataloaders[phase]:
                 inputs = inputs.to(DEVICE)
                 labels = labels.to(DEVICE)
 
-                optimizer.zero_grad()
-
                 with torch.set_grad_enabled(phase == "train"):
                     outputs = model(inputs)
-                    _, preds = torch.max(outputs, 1)
+                    _, predicted = torch.max(outputs, 1)
                     loss = criterion(outputs, labels)
 
                     if phase == "train":
+                        optimizer.zero_grad()
                         loss.backward()
                         optimizer.step()
                     
                 running_loss += loss.item() * inputs.size(0)
-                running_corrects += torch.sum(preds == labels.data)
+                running_correct += torch.sum(predicted == labels).item()
 
             if phase == "train":
                 scheduler.step()
 
-            epoch_loss = running_loss = running_loss / len(datasets[phase])
-            epoch_acc = running_corrects.double() / len(datasets[phase])
+            epoch_loss = running_loss / len(dataloaders[phase].dataset)
+            epoch_acc = running_correct / len(dataloaders[phase].dataset)
 
             t.set_description(f"[Epoch: {epoch + 1}/{NUM_EPOCHS}][{phase}] Loss: {epoch_loss:.3f} | Accuracy: {epoch_acc:.3f}")
 
@@ -178,7 +176,6 @@ def train_model(model: nn.Module,
     print(f"Best accuracy: {best_acc:.3f}")
 
     load_model(model, optimizer)
-
 
     return model
 
@@ -209,13 +206,13 @@ def show_model(model: nn.Module, datasets: DataLoader, img_num: int = 6):
             inputs = inputs.to(DEVICE)
             labels = labels.to(DEVICE)
             outputs = model(inputs)
-            _, preds = torch.max(outputs, 1)
+            _, predicted = torch.max(outputs, 1)
 
             for j in range(inputs.size()[0]):
                 img_count += 1
                 ax = plt.subplot(img_num // 3, 3, img_count)
                 ax.axis("off")
-                ax.set_title(f"Predicted: {datasets.dataset._classes[preds[j]]}")
+                ax.set_title(f"Predicted: {datasets.dataset._classes[predicted[j]]}")
                 imshow(inputs.cpu().data[j])
 
                 if img_count == img_num:
@@ -234,25 +231,20 @@ def predict_image(model: nn.Module, datasets, path: str):
 
     with torch.no_grad():
         outputs = model(img)
-        _, preds = torch.max(outputs, 1)
+        _, predicted = torch.max(outputs, 1)
 
         ax = plt.subplot(1, 1, 1)
         ax.axis("off")
-        ax.set_title(f"Predicted: {datasets.dataset._classes[preds[0]]}")
+        ax.set_title(f"Predicted: {datasets.dataset._classes[predicted[0]]}")
         imshow(img.cpu().data[0])
         model.train(mode = training_state)
 
-
-def imshow(inp, title = None):
-    inp = inp.numpy().transpose((1, 2, 0))
-    mean = np.array([0.5, 0.5, 0.5])
-    std = np.array([0.5, 0.5, 0.5])
-    inp = std * inp + mean
-    inp = np.clip(inp, 0, 1)
-    plt.imshow(inp)
-    if title is not None:
-        plt.title(title)
-    plt.pause(0.001)
+def imshow(img: torch.Tensor):
+    img = img.numpy().transpose((1, 2, 0))
+    img = IMG_STD * img + IMG_MEAN
+    img = np.clip(img, 0, 1)
+    plt.imshow(img)
+    # plt.show()
     
 def clean_dataset(img_transform: transforms.Compose):
     for file in (Path(DATASET_PATH) / "images").glob("*"):
@@ -268,13 +260,13 @@ def setup_transforms() -> dict[transforms.Compose]:
             transforms.ConvertImageDtype(torch.float),
             transforms.RandomResizedCrop(224),
             transforms.RandomHorizontalFlip(),
-            transforms.Normalize(mean = (0.5, 0.5, 0.5), std = (0.5, 0.5, 0.5))])
+            transforms.Normalize(mean = IMG_MEAN, std = IMG_STD)])
     img_transforms["test"] = transforms.Compose([
             transforms.PILToTensor(),
             transforms.ConvertImageDtype(torch.float),
             transforms.Resize(256),
             transforms.CenterCrop(224),
-            transforms.Normalize(mean = (0.5, 0.5, 0.5), std = (0.5, 0.5, 0.5))])
+            transforms.Normalize(mean = IMG_MEAN, std = IMG_STD)])
     return img_transforms
 
 def main(args: tuple):
@@ -313,17 +305,17 @@ def main(args: tuple):
         print(f"Accuracy of model: {accuracy}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description = "Geddit")
+    parser = argparse.ArgumentParser(description = "ResNet-Pet")
     parser.add_argument(
         "--train", "-t",
         action = "store_true",
         help = "to train model",
     )
-    parser.add_argument(
-        "--validate", "-v",
-        action = "store_true",
-        help = "to validate model",
-    )
+    # parser.add_argument(
+    #     "--validate", "-v",
+    #     action = "store_true",
+    #     help = "to validate model",
+    # )
     parser.add_argument(
         "--clean", "-c",
         action = "store_true",
