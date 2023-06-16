@@ -56,7 +56,7 @@ class PetDataset(Dataset):
         self._img_path = img_path
         dataset_list = Path(labels_path) / "list.txt"
         if dataset_list.is_file():
-            self._labels = pd.read_csv(Path(labels_path) / "list.txt")
+            self._labels = pd.read_csv(Path(labels_path) / "list.txt", header = None)
         else:
             self._create_dataset_list()
         self._classes = self.__getclasses__()
